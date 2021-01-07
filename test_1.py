@@ -24,6 +24,7 @@ def resize_img(img):
 if __name__ == '__main__':
     ori_img_path = '.\\data\\ori_images\\'
     re_img_path = '.\\data\\re_images\\'
+    re_416_path = '.\\data\\re_416_images\\'
 
     img_paths = os.listdir(ori_img_path)
     for i in img_paths:
@@ -35,3 +36,14 @@ if __name__ == '__main__':
         cv2.imwrite(save_path, re_img)
 
     print('共处理了%s张图片' % (len(img_paths)))
+
+    # 改变图像大小
+    re_img_paths=os.listdir(re_img_path)
+    for i416 in re_img_paths:
+        img = os.path.join(re_img_path, i416)
+        im1 = cv2.imread(img)
+        im2 = cv2.resize(im1, (416, 416), )  # 为图片重新指定尺寸
+        re_416_name = '416_'+i416
+        save_416_path=os.path.join(re_416_path, re_416_name)
+        cv2.imwrite(save_416_path, im2)
+    print('416共处理了%s张图片' % (len(re_img_paths)))
